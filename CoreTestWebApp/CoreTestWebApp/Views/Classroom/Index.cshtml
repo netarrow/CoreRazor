@@ -1,0 +1,25 @@
+﻿@model Classroom
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Last Name</th>
+    </tr>
+    </thead>
+    <tbody>
+        @foreach (var student in @Model.Students)
+        {
+            <tr>
+                <td>@student.Name</td>
+                <td>@student.LastName</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
