@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
 }
 
-<table>
+<table class="table table-striped">
     <thead>
     <tr>
         <th>Name</th>
@@ -12,14 +12,16 @@
     </tr>
     </thead>
     <tbody>
-        @foreach (var student in @Model.Students)
-        {
-            <tr>
-                <td>@student.Name</td>
-                <td>@student.LastName</td>
-            </tr>
-        }
+    @foreach (var student in @Model.Students)
+    {
+        <tr>
+            <td>@student.Name</td>
+            <td>@student.LastName</td>
+        </tr>
+    }
     </tbody>
 </table>
+
+<a asp-controller="Student" asp-action="AddForm">Aggiungi Studente</a>
 
 

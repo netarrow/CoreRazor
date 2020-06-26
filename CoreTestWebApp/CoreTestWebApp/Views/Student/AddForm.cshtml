@@ -1,0 +1,21 @@
+﻿@model Student
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+
+
+@using (Html.BeginForm("AddStudent", "Student", FormMethod.Post))
+{
+
+    <div class="form-group">
+        @Html.TextBoxFor(_ => _.Name)
+        @Html.TextBoxFor(_ => _.LastName)
+    </div>
+
+    <button type="submit">Invia</button>
+}
+
+
+
