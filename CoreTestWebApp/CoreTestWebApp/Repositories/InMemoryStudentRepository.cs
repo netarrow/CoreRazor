@@ -6,7 +6,7 @@ namespace CoreTestWebApp.Repositories
 {
     public class InMemoryStudentRepository : IStudentRepository
     {
-        private List<Student> students; 
+        private static List<Student> students; 
 
         public InMemoryStudentRepository()
         {
