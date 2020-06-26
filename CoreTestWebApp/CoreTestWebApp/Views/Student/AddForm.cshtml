@@ -4,10 +4,10 @@
     ViewData["Title"] = "Index";
 }
 
-
-
 @using (Html.BeginForm("AddStudent", "Student", FormMethod.Post))
 {
+    @Html.ValidationSummary()
+
     <div class="form-group">
         @Html.LabelFor(_=>_.Name)
         @Html.TextBoxFor(_ => _.Name, null, new {@class = "form-control"})

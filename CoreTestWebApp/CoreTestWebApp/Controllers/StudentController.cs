@@ -18,7 +18,10 @@ namespace CoreTestWebApp.Controllers
         [HttpPost]
         public IActionResult AddStudent(Student student)
         {
-            var tmp = student;
+            if (!ModelState.IsValid)
+            {
+                var test = "error";
+            }
 
             return View("AddForm");
         }
