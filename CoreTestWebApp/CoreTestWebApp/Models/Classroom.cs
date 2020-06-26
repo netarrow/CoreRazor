@@ -12,6 +12,6 @@ namespace CoreTestWebApp.Models
             Students = new List<Student>();
         }
 
-        public List<Student> Students { get; private set; } 
+        public List<Student> Students { get; set; } 
     }
 }

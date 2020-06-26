@@ -20,7 +20,7 @@ namespace CoreTestWebApp.Controllers
         {
             if (!ModelState.IsValid)
             {
-                var test = "error";
+                
             }
 
             return View("AddForm");
