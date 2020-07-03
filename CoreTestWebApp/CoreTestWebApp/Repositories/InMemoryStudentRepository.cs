@@ -6,10 +6,12 @@ namespace CoreTestWebApp.Repositories
 {
     public class InMemoryStudentRepository : IStudentRepository
     {
+        private readonly IStudentIdGenerator idGenerator;
         private static List<Student> students; 
 
-        public InMemoryStudentRepository()
+        public InMemoryStudentRepository(IStudentIdGenerator idGenerator)
         {
+            this.idGenerator = idGenerator;
             students = new List<Student>();
         }
 
@@ -20,6 +22,7 @@ namespace CoreTestWebApp.Repositories
 
         public void AddStudent(Student student)
         {
+            student.StudentId = this.idGenerator.GenerateIdForStudent(student);
             students.Add(student);
         }
     }

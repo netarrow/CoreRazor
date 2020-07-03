@@ -1,3 +1,5 @@
+using System.Linq;
+using CoreTest.UnitTests.Mocks;
 using CoreTestWebApp.Models;
 using CoreTestWebApp.Repositories;
 using NUnit.Framework;
@@ -15,7 +17,7 @@ namespace CoreTest.UnitTests
         public void StudentRepository_GetStudents_WhenRepoIsEmpty_ReturnsNoStudents()
         {
             // arrange
-            IStudentRepository repo = new InMemoryStudentRepository();
+            IStudentRepository repo = new InMemoryStudentRepository(new MockPrefetchedStudentIdGenerator(1));
 
             // act
             var students = repo.GetStudents();
@@ -29,7 +31,7 @@ namespace CoreTest.UnitTests
         public void StudentRepository_AddingStudent_MustAddStudentToRepo()
         {
             // arrange
-            IStudentRepository repo = new InMemoryStudentRepository();
+            IStudentRepository repo = new InMemoryStudentRepository(new MockPrefetchedStudentIdGenerator(1));
             Student creatingUser = new Student() { LastName = "Pallo", Name = "Pinco" };
 
             // act
@@ -41,5 +43,38 @@ namespace CoreTest.UnitTests
 
         }
 
+        [Test]
+        public void StudentRepository_AddingStudent_LastNameNameAndStudentId()
+        {
+            // arrange
+            IStudentRepository repo = new InMemoryStudentRepository(new MockPrefetchedStudentIdGenerator(12345));
+            Student creatingUser = new Student() { LastName = "Pallo", Name = "Pinco" };
+
+            // act
+            repo.AddStudent(creatingUser);
+
+            // assert
+            var studentsInRepo = repo.GetStudents();
+            Assert.AreEqual("Pallo", studentsInRepo.Single().LastName);
+            Assert.AreEqual("Pinco", studentsInRepo.Single().Name);
+            Assert.AreEqual(12345, studentsInRepo.Single().StudentId);
+        }
+
+        [Test]
+        public void StudentRepository_AddingTwoStudentStudent_TwoStudentWithTwoStudentId()
+        {
+            // arrange
+            IStudentRepository repo = new InMemoryStudentRepository(new MockHashedGeneratedStudentIdGenerator());
+            Student firstStudent = new Student() { LastName = "Pallo", Name = "Pinco" };
+            Student secondStudent = new Student() { LastName = "Caio", Name = "Tizio" };
+
+            // act
+            repo.AddStudent(firstStudent);
+            repo.AddStudent(secondStudent);
+
+            // assert
+            var studentsInRepo = repo.GetStudents();
+            Assert.AreNotEqual(studentsInRepo.ElementAt(0).StudentId, studentsInRepo.ElementAt(1).StudentId);
+        }
     }
 }
