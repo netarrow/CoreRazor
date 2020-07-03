@@ -36,7 +36,7 @@ namespace CoreTestWebApp
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddScoped(typeof(IStudentRepository), typeof(InMemoryStudentRepository));
-
+            services.AddScoped<IStudentIdGenerator>(_ => new MockPrefetchedStudentIdGenerator(12345));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

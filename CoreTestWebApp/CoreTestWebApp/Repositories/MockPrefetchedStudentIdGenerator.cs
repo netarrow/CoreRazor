@@ -1,7 +1,6 @@
 ﻿using CoreTestWebApp.Models;
-using CoreTestWebApp.Repositories;
 
-namespace CoreTest.UnitTests.Mocks
+namespace CoreTestWebApp.Repositories
 {
     public class MockPrefetchedStudentIdGenerator : IStudentIdGenerator  
     {
