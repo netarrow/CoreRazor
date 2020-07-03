@@ -7,7 +7,7 @@ namespace CoreTestWebApp.Repositories
     public class InMemoryStudentRepository : IStudentRepository
     {
         private readonly IStudentIdGenerator idGenerator;
-        private static List<Student> students; 
+        private static List<Student> students;
 
         public InMemoryStudentRepository(IStudentIdGenerator idGenerator)
         {

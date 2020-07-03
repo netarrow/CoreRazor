@@ -3,12 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using CoreTestWebApp.Models;
+using CoreTestWebApp.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace CoreTestWebApp.Controllers
 {
     public class StudentController : Controller
     {
+        private readonly IStudentRepository _repository;
+
+        public StudentController(IStudentRepository repository)
+        {
+            _repository = repository;
+        }
+
         [HttpGet]
         public IActionResult AddForm()
         {
@@ -18,12 +27,15 @@ namespace CoreTestWebApp.Controllers
         [HttpPost]
         public IActionResult AddStudent(Student student)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                
-            }
+                _repository.AddStudent(student);
 
-            return View("AddForm");
+                return RedirectToAction("Index", "Classroom");
+            }
+            else
+                return View("AddForm");
+
         }
 
     }
