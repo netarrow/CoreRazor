@@ -14,5 +14,6 @@ namespace CoreTestWebApp.Models
         public string LastName { get; set; }
 
         public int StudentId { get; set; }
+        public string CF { get; set; }
     }
 }

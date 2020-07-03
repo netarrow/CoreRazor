@@ -1,3 +1,4 @@
+using System;
 using System.Linq;
 using CoreTest.UnitTests.Mocks;
 using CoreTestWebApp.Models;
@@ -11,6 +12,13 @@ namespace CoreTest.UnitTests
         [SetUp]
         public void Setup()
         {
+        }
+
+        [TearDown]
+        public void Clear()
+        {
+            var repo = new InMemoryStudentRepository(new MockPrefetchedStudentIdGenerator(1));
+            repo.GetStudents().Clear();
         }
 
         [Test]
@@ -65,8 +73,8 @@ namespace CoreTest.UnitTests
         {
             // arrange
             IStudentRepository repo = new InMemoryStudentRepository(new MockHashedGeneratedStudentIdGenerator());
-            Student firstStudent = new Student() { LastName = "Pallo", Name = "Pinco" };
-            Student secondStudent = new Student() { LastName = "Caio", Name = "Tizio" };
+            Student firstStudent = new Student() { LastName = "Pallo", Name = "Pinco", CF ="TestCF" };
+            Student secondStudent = new Student() { LastName = "Caio", Name = "Tizio", CF = "OherTestCF" };
 
             // act
             repo.AddStudent(firstStudent);
@@ -75,6 +83,21 @@ namespace CoreTest.UnitTests
             // assert
             var studentsInRepo = repo.GetStudents();
             Assert.AreNotEqual(studentsInRepo.ElementAt(0).StudentId, studentsInRepo.ElementAt(1).StudentId);
+        }
+
+        [Test]
+        public void StudentRepository_AddingTwoStudentStudentWithSameCF_ThrowsExceptionInvalidOperation()
+        {
+            // arrange
+            IStudentRepository repo = new InMemoryStudentRepository(new MockHashedGeneratedStudentIdGenerator());
+            Student firstStudent = new Student() { LastName = "Pallo", Name = "Pinco", CF = "TestCF" };
+            Student secondStudent = new Student() { LastName = "Caio", Name = "Tizio", CF = "TestCF" };
+            repo.AddStudent(firstStudent);
+
+            // act
+            // assert
+            Assert.Throws(typeof(InvalidOperationException), () => repo.AddStudent(secondStudent));
+
         }
     }
 }
