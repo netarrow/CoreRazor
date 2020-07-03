@@ -17,6 +17,10 @@ namespace CoreTestWebApp.Models
 
         [DisplayName("Codice Fiscale")]
         [Required]
-        public string CF { get; set; }
+        public string CF { get; set; } 
+
+        // classe/facoltà
     }
 }
+
+// matricola- MTTM4242033I1
