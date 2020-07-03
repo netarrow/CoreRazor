@@ -29,7 +29,16 @@ namespace CoreTestWebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                _repository.AddStudent(student);
+                try
+                {
+                    _repository.AddStudent(student);
+                }
+                catch (InvalidOperationException ex)
+                {
+                    ModelState.AddModelError("DuplicatedCF", "Non è possibile inserire studenti con codice fiscale duplicato"); 
+                    // log
+                    return View("AddForm");
+                }
 
                 return RedirectToAction("Index", "Classroom");
             }

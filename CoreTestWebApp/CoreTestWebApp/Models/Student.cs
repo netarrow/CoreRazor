@@ -14,6 +14,9 @@ namespace CoreTestWebApp.Models
         public string LastName { get; set; }
 
         public int StudentId { get; set; }
+
+        [DisplayName("Codice Fiscale")]
+        [Required]
         public string CF { get; set; }
     }
 }

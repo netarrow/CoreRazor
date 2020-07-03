@@ -9,12 +9,16 @@
     @Html.ValidationSummary()
 
     <div class="form-group">
-        @Html.LabelFor(_=>_.Name)
-        @Html.TextBoxFor(_ => _.Name, null, new {@class = "form-control"})
+        @Html.LabelFor(_ => _.Name)
+        @Html.TextBoxFor(_ => _.Name, null, new { @class = "form-control" })
     </div>
     <div class="form-group">
         @Html.LabelFor(_ => _.LastName)
         @Html.TextBoxFor(_ => _.LastName, null, new { @class = "form-control" })
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(_ => _.CF)
+        @Html.TextBoxFor(_ => _.CF, null, new { @class = "form-control" })
     </div>
 
     <button type="submit">Invia</button>
