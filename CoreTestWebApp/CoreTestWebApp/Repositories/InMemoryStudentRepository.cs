@@ -15,16 +15,12 @@ namespace CoreTestWebApp.Repositories
 
         public List<Student> GetStudents()
         {
-            students.Add(new Student() { LastName = "Pallo", Name = "Pinco"});
-            students.Add(new Student() { LastName = "A", Name = "B"});
-            students.Add(new Student() { LastName = "C", Name = "D"});
-
             return students;
         }
 
         public void AddStudent(Student student)
         {
-            throw new NotImplementedException();
+            students.Add(student);
         }
     }
 }
