@@ -5,7 +5,22 @@ VisualStudioVersion = 16.0.30104.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreTestWebApp", "CoreTestWebApp\CoreTestWebApp.csproj", "{19AD31E6-A244-4A34-800E-98CA9166A190}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CoreTest.UnitTests", "CoreTest.UnitTests\CoreTest.UnitTests.csproj", "{646EFFB0-4283-4C15-A41A-FCFAA1BC8627}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CoreTest.UnitTests", "CoreTest.UnitTests\CoreTest.UnitTests.csproj", "{646EFFB0-4283-4C15-A41A-FCFAA1BC8627}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{24A72DD0-F160-4145-AB6E-D4D86BF91CA7}"
+	ProjectSection(SolutionItems) = preProject
+		build\build.bat = build\build.bat
+		build\build.ps1 = build\build.ps1
+		build\BuildFunctions.ps1 = build\BuildFunctions.ps1
+		build\click_to_build.bat = build\click_to_build.bat
+		build\PrivateBuild.ps1 = build\PrivateBuild.ps1
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tools", "tools", "{4DCE3309-B156-44B1-9C7B-87E8DDAF24CA}"
+	ProjectSection(SolutionItems) = preProject
+		build\tools\Octo.exe = build\tools\Octo.exe
+		build\tools\Octo.exe.config = build\tools\Octo.exe.config
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,6 +39,9 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{4DCE3309-B156-44B1-9C7B-87E8DDAF24CA} = {24A72DD0-F160-4145-AB6E-D4D86BF91CA7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BAB6CFF6-3CF3-49D5-B3F7-25F4B6622A30}
