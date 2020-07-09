@@ -13,7 +13,7 @@ namespace CoreTestWebApp.Models
         [Required]
         public string LastName { get; set; }
 
-        public int StudentId { get; set; }
+        public long StudentId { get; set; } 
 
         [DisplayName("Codice Fiscale")]
         [Required]

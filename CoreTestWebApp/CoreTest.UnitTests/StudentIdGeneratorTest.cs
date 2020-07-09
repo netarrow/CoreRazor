@@ -21,40 +21,79 @@ namespace CoreTest.UnitTests
         }
 
         [Test]
-        public void StudentIdGenerator_GeneredId_Student_StartWith_T_and_P_MustStartWithStudentInitials()   
+        public void StudentIdGenerator_GeneredId_Student_StartWith_T_and_P_MustStartWithStudentInitials()
         {
-            StudentIdGenerator generator = new StudentIdGenerator();
-            var student = new Student() { LastName = "Prova", Name = "Test"};
+            StudentIdGenerator generator = new StudentIdGenerator(new MockPrefetchedTimeService(new DateTime(2020, 1, 10)));
+            var student = new Student() { LastName = "Prova", Name = "Test" };
 
-            int studentId = generator.GenerateIdForStudent(student);
+            long studentId = generator.GenerateIdForStudent(student);
             var studentIdStr = studentId.ToString();
 
-            Assert.AreEqual("8084", studentIdStr);
+            Assert.That(() => studentIdStr.StartsWith("8084"), () => studentIdStr);
         }
-        
+
         [Test]
         public void StudentIdGenerator_GeneredId_Student_StartWith_A_and_E_MustStartWithStudentInitials()
         {
-            StudentIdGenerator generator = new StudentIdGenerator();
-            var student = new Student() { LastName = "Experiment", Name = "Another"};   
+            StudentIdGenerator generator = new StudentIdGenerator(new MockPrefetchedTimeService(new DateTime(2020, 1, 10)));
+            var student = new Student() { LastName = "Experiment", Name = "Another" };
 
-            int studentId = generator.GenerateIdForStudent(student);
+            long studentId = generator.GenerateIdForStudent(student);
             var studentIdStr = studentId.ToString();
 
-            Assert.AreEqual("6965", studentIdStr);
+            Assert.That(() => studentIdStr.StartsWith("6965"), () => studentIdStr);
+        }
+
+        [Test]
+        public void StudentIdGenerator_GeneredId_Student_CreatedOn_10_January_2020_MustEndsWith100120()
+        {
+            StudentIdGenerator generator = 
+                new StudentIdGenerator(new MockPrefetchedTimeService(new DateTime(2020, 1, 10)));
+            var student = new Student() { LastName = "Experiment", Name = "Another" };
+
+            long studentId = generator.GenerateIdForStudent(student);
+            var studentIdStr = studentId.ToString();
+
+            Assert.AreEqual("6965100120", studentIdStr);
         }
 
     }
 
     public class StudentIdGenerator : IStudentIdGenerator
     {
-        public int GenerateIdForStudent(Student student)
+        private readonly ITimeService _timeService;
+
+        public StudentIdGenerator(ITimeService timeService)
+        {
+            _timeService = timeService;
+        }
+
+        public long GenerateIdForStudent(Student student)
         {
             char firstTwoLetterOfName = student.Name.First();
             char firstTowLetterOfLastName = student.LastName.First();
-
-            return Int32.Parse($"{((int)firstTowLetterOfLastName)}{((int)firstTwoLetterOfName)}");
+            var date = _timeService.GetCurrentDate();
+            
+            return Int64.Parse($"{((int)firstTowLetterOfLastName)}{((int)firstTwoLetterOfName)}{date:ddMMyy}");
         }
     }
 
+    public interface ITimeService
+    {
+        DateTime GetCurrentDate();
+    }
+
+    public class MockPrefetchedTimeService : ITimeService
+    {
+        private readonly DateTime _dateTime;
+
+        public MockPrefetchedTimeService(DateTime dateTime)
+        {
+            _dateTime = dateTime;
+        }
+        public DateTime GetCurrentDate()
+        {
+            return _dateTime;
+        }
+    }
 }

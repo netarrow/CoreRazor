@@ -2,16 +2,16 @@
 
 namespace CoreTestWebApp.Repositories
 {
-    public class MockPrefetchedStudentIdGenerator : IStudentIdGenerator  
+    public class MockPrefetchedStudentIdGenerator : IStudentIdGenerator
     {
-        private readonly int prefetchedStudentId;   
+        private readonly long prefetchedStudentId;
 
-        public MockPrefetchedStudentIdGenerator(int prefetchedStudentId)
+        public MockPrefetchedStudentIdGenerator(long prefetchedStudentId)
         {
-            this.prefetchedStudentId = prefetchedStudentId; 
+            this.prefetchedStudentId = prefetchedStudentId;
         }
 
-        public int GenerateIdForStudent(Student student)
+        public long GenerateIdForStudent(Student student)
         {
             return this.prefetchedStudentId;
         }
