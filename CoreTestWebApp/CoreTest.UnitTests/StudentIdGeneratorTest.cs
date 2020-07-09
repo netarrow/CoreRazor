@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
+using CoreTest.UnitTests.Mocks;
 using CoreTestWebApp.Models;
 using CoreTestWebApp.Repositories;
 using NUnit.Framework;
@@ -57,43 +57,5 @@ namespace CoreTest.UnitTests
             Assert.AreEqual("6965100120", studentIdStr);
         }
 
-    }
-
-    public class StudentIdGenerator : IStudentIdGenerator
-    {
-        private readonly ITimeService _timeService;
-
-        public StudentIdGenerator(ITimeService timeService)
-        {
-            _timeService = timeService;
-        }
-
-        public long GenerateIdForStudent(Student student)
-        {
-            char firstTwoLetterOfName = student.Name.First();
-            char firstTowLetterOfLastName = student.LastName.First();
-            var date = _timeService.GetCurrentDate();
-            
-            return Int64.Parse($"{((int)firstTowLetterOfLastName)}{((int)firstTwoLetterOfName)}{date:ddMMyy}");
-        }
-    }
-
-    public interface ITimeService
-    {
-        DateTime GetCurrentDate();
-    }
-
-    public class MockPrefetchedTimeService : ITimeService
-    {
-        private readonly DateTime _dateTime;
-
-        public MockPrefetchedTimeService(DateTime dateTime)
-        {
-            _dateTime = dateTime;
-        }
-        public DateTime GetCurrentDate()
-        {
-            return _dateTime;
-        }
     }
 }
