@@ -11,10 +11,16 @@ namespace CoreTest.UnitTests
         public void Test_Char_Integer_Value()
         {
             char p = 'P';
-            char r = 'r';
-
+            char t = 'T';
+                
             Console.WriteLine((int) p);
-            Console.WriteLine((int) r);
+            Console.WriteLine((int) t);
+            
+            char a = 'A';
+            char e = 'E';
+                
+            Console.WriteLine((int) a);
+            Console.WriteLine((int) e);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using CoreTestWebApp.Models;
 using CoreTestWebApp.Repositories;
@@ -20,7 +21,7 @@ namespace CoreTest.UnitTests
         }
 
         [Test]
-        public void StudentIdGenerator_GeneredId_MustStartWithStudentInitials()
+        public void StudentIdGenerator_GeneredId_Student_StartWith_T_and_P_MustStartWithStudentInitials()   
         {
             StudentIdGenerator generator = new StudentIdGenerator();
             var student = new Student() { LastName = "Prova", Name = "Test"};
@@ -28,8 +29,19 @@ namespace CoreTest.UnitTests
             int studentId = generator.GenerateIdForStudent(student);
             var studentIdStr = studentId.ToString();
 
-            Assert.Inconclusive();
-            Assert.AreEqual("80114", studentIdStr);
+            Assert.AreEqual("8084", studentIdStr);
+        }
+        
+        [Test]
+        public void StudentIdGenerator_GeneredId_Student_StartWith_A_and_E_MustStartWithStudentInitials()
+        {
+            StudentIdGenerator generator = new StudentIdGenerator();
+            var student = new Student() { LastName = "Experiment", Name = "Another"};   
+
+            int studentId = generator.GenerateIdForStudent(student);
+            var studentIdStr = studentId.ToString();
+
+            Assert.AreEqual("6965", studentIdStr);
         }
 
     }
@@ -38,7 +50,10 @@ namespace CoreTest.UnitTests
     {
         public int GenerateIdForStudent(Student student)
         {
-            return 80114;
+            char firstTwoLetterOfName = student.Name.First();
+            char firstTowLetterOfLastName = student.LastName.First();
+
+            return Int32.Parse($"{((int)firstTowLetterOfLastName)}{((int)firstTwoLetterOfName)}");
         }
     }
 
