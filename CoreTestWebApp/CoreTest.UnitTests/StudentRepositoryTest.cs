@@ -83,6 +83,22 @@ namespace CoreTest.UnitTests
             // assert
             var studentsInRepo = repo.GetStudents();
             Assert.AreNotEqual(studentsInRepo.ElementAt(0).StudentId, studentsInRepo.ElementAt(1).StudentId);
+        } 
+        
+        [Test]
+        public void StudentRepository_AddingStudent_GenerateStudentId_BasedOnNameAndDate()  
+        {
+            // arrange
+            var mockTime = new MockPrefetchedTimeService(new DateTime(2018, 5, 20)); // 200518
+            IStudentRepository repo = new InMemoryStudentRepository(new StudentIdGenerator(mockTime));
+            Student firstStudent = new Student() { LastName = "Pallo", Name = "Pinco", CF ="TestCF" };
+
+            // act
+            repo.AddStudent(firstStudent);
+
+            // assert
+            var studentsInRepo = repo.GetStudents();
+            Assert.AreEqual(8080200518, studentsInRepo.First().StudentId);
         }
 
         [Test]
