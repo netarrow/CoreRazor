@@ -36,7 +36,7 @@ namespace CoreTestWebApp
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
             services.AddSingleton(typeof(IStudentRepository), typeof(InMemoryStudentRepository));
-            services.AddSingleton<IStudentIdGenerator>(_ => new MockPrefetchedStudentIdGenerator(12345));
+            services.AddSingleton<IStudentIdGenerator>(_ => new StudentIdGenerator(new UtcTimeService()));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
