@@ -33,9 +33,25 @@ namespace CoreTestWebApp.Controllers
         }
 
         [HttpPost]
-        public IActionResult EditStudent(Student newStudent)
+        public IActionResult EditStudent(Student updatedStudent)
         {
-            throw new NotImplementedException();
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _repository.EditStudent(updatedStudent);
+                }
+                catch (InvalidOperationException ex)
+                {
+                    ModelState.AddModelError("DuplicatedCF", "Non è possibile inserire studenti con codice fiscale duplicato");
+                    // log
+                    return View("EditForm");
+                }
+
+                return RedirectToAction("Index", "Classroom");
+            }
+            else
+                return View("EditForm");
         }
 
         [HttpPost]

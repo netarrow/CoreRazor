@@ -13,5 +13,7 @@ namespace CoreTestWebApp.Repositories
 
         Student GetStudentById(long studentId);
 
+        void EditStudent(Student updatedStudent);
+
     }
 }

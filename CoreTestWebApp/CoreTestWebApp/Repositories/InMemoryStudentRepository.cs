@@ -43,5 +43,19 @@ namespace CoreTestWebApp.Repositories
 
             return student;
         }
+
+        public void EditStudent(Student updatedStudent)
+        {
+            var studentToUpdate = this.GetStudentById(updatedStudent.StudentId);
+
+            var conflictingStudent = students.SingleOrDefault(_ => _.CF == updatedStudent.CF);
+
+            if ((conflictingStudent != null && conflictingStudent.StudentId != studentToUpdate.StudentId))
+                throw new InvalidOperationException($"Invalid op. adding duplicate student with CF {conflictingStudent.CF}");
+
+            studentToUpdate.CF = updatedStudent.CF;
+            studentToUpdate.Name = updatedStudent.Name;
+            studentToUpdate.LastName = updatedStudent.LastName;
+        }
     }
 }
