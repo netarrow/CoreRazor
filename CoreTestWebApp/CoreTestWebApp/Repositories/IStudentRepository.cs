@@ -11,5 +11,7 @@ namespace CoreTestWebApp.Repositories
 
         void AddStudent(Student student);
 
+        Student GetStudentById(long studentId);
+
     }
 }

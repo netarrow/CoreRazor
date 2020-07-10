@@ -24,6 +24,20 @@ namespace CoreTestWebApp.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult EditForm(long studentId)
+        {
+            var student = _repository.GetStudentById(studentId);
+                    
+            return View(student);
+        }
+
+        [HttpPost]
+        public IActionResult EditStudent(Student newStudent)
+        {
+            throw new NotImplementedException();
+        }
+
         [HttpPost]
         public IActionResult AddStudent(Student student)
         {

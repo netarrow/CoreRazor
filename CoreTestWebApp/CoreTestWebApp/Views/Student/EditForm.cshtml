@@ -1,13 +1,17 @@
 ﻿@model Student
 
 @{
-    ViewData["Title"] = "Add Student";
+    ViewData["Title"] = "Edit Student";
 }
 
-@using (Html.BeginForm("AddStudent", "Student", FormMethod.Post))
+@using (Html.BeginForm("EditStudent", "Student", FormMethod.Post))
 {
     @Html.ValidationSummary()
 
+    <div class="form-group">
+        @Html.LabelFor(_ => _.StudentId)
+        @Html.DisplayTextFor(_=> _.StudentId)
+    </div>
     <div class="form-group">
         @Html.LabelFor(_ => _.Name)
         @Html.TextBoxFor(_ => _.Name, null, new { @class = "form-control" })

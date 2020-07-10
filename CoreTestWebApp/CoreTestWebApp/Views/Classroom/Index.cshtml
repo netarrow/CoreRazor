@@ -1,28 +1,29 @@
 ﻿@model Classroom
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Classroom";
 }
 
 <table class="table table-striped">
     <thead>
-    <tr>
-        <th>Nome</th>
-        <th>Cognome</th>
-        <th>Matricola</th>
-        <th>Codice Fiscale</th>
-    </tr>
+        <tr>
+            <th>Nome</th>
+            <th>Cognome</th>
+            <th>Matricola</th>
+            <th>Codice Fiscale</th>
+        </tr>
     </thead>
     <tbody>
-    @foreach (var student in @Model.Students)
-    {
-        <tr>
-            <td>@student.Name</td>
-            <td>@student.LastName</td>
-            <td>@student.StudentId</td>
-            <td>@student.CF</td>
-        </tr>
-    }
+        @foreach (var student in @Model.Students)
+        {
+            <tr>
+                <td>@student.Name</td>
+                <td>@student.LastName</td>
+                <td>@student.StudentId</td>
+                <td>@student.CF</td>
+                <td><a asp-action="EditForm" asp-controller="Student" asp-route-studentId="@student.StudentId">Edit</a></td>
+            </tr>
+        }
     </tbody>
 </table>
 

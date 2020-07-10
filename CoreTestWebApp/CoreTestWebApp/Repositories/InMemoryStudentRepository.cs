@@ -33,5 +33,15 @@ namespace CoreTestWebApp.Repositories
             student.StudentId = this.idGenerator.GenerateIdForStudent(student);
             students.Add(student);
         }
+
+        public Student GetStudentById(long studentId)
+        {
+            var student = students.SingleOrDefault(_ => _.StudentId == studentId);
+
+            if(student == null)
+                throw new KeyNotFoundException($"Student not found with {studentId}");
+
+            return student;
+        }
     }
 }
