@@ -23,7 +23,12 @@ namespace CoreTestWebApp.Repositories.Database
 
         public void AddStudent(Student student)
         {
-            throw new System.NotImplementedException();
+            using (StudentContext ctx = new StudentContext(_connectionString))
+            {
+                ctx.Students.Add(student);
+
+                ctx.SaveChanges();
+            }
         }
 
         public Student GetStudentById(long studentId)
