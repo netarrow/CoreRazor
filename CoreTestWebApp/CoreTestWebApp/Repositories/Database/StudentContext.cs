@@ -9,14 +9,20 @@ namespace CoreTestWebApp.Repositories.Database
 {
     public class StudentContext : DbContext
     {
+        private readonly string _connectionString;
+
+        public StudentContext(string connectionString)
+        {
+            _connectionString = connectionString;
+        }
+
         public virtual DbSet<Student> Students { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer(
-                    @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=StudentDbGen;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+                optionsBuilder.UseSqlServer(this._connectionString);
             }
         }
 
