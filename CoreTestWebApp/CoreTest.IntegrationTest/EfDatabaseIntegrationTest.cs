@@ -4,7 +4,7 @@ using NUnit.Framework;
 
 namespace CoreTest.IntegrationTest
 {
-    public class EfDatabaseIntegration
+    public class EfDatabaseIntegrationTest
     {
         [SetUp]
         public void Setup()
