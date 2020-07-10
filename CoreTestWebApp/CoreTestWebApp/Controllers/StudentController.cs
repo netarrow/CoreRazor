@@ -28,54 +28,42 @@ namespace CoreTestWebApp.Controllers
         public IActionResult EditForm(long studentId)
         {
             var student = _repository.GetStudentById(studentId);
-                    
+
             return View(student);
         }
 
         [HttpPost]
         public IActionResult EditStudent(Student updatedStudent)
         {
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _repository.EditStudent(updatedStudent);
-                }
-                catch (InvalidOperationException ex)
-                {
-                    ModelState.AddModelError("DuplicatedCF", "Non è possibile inserire studenti con codice fiscale duplicato");
-                    // log
-                    return View("EditForm");
-                }
-
-                return RedirectToAction("Index", "Classroom");
-            }
-            else
-                return View("EditForm");
+            return ExecuteActionValidatingModel(() => _repository.EditStudent(updatedStudent), "EditForm");
         }
 
         [HttpPost]
         public IActionResult AddStudent(Student student)
         {
+            return ExecuteActionValidatingModel(() => _repository.AddStudent(student), "AddForm");
+
+        }
+
+        private IActionResult ExecuteActionValidatingModel(Action toExecute, string redirectToForm)
+        {
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _repository.AddStudent(student);
+                    toExecute();
                 }
                 catch (InvalidOperationException ex)
                 {
-                    ModelState.AddModelError("DuplicatedCF", "Non è possibile inserire studenti con codice fiscale duplicato"); 
+                    ModelState.AddModelError("DuplicatedCF", "Non è possibile inserire studenti con codice fiscale duplicato");
                     // log
-                    return View("AddForm");
+                    return View(redirectToForm);
                 }
 
                 return RedirectToAction("Index", "Classroom");
             }
             else
-                return View("AddForm");
-
+                return View(redirectToForm);
         }
-
     }
 }
